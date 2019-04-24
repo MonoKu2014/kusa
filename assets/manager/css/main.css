@@ -1,0 +1,253 @@
+
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu-Regular.ttf');
+}
+ 
+@font-face {
+    font-family: 'Righteous';
+    src: url('../fonts/Righteous-Regular.ttf');
+}
+
+
+body {
+    background: url('../images/back2.jpg') center top no-repeat fixed;
+    background-size: cover;
+    font-family: 'Ubuntu' !important;
+    margin: 0;
+    color: #fff !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Righteous' !important;
+}
+
+#menu-principal {
+    margin-bottom: 20px !important;
+}
+
+.fondo_blanco {
+    background: rgba(0, 0, 0, 0.96);
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+#alto-minimo {
+    min-height: 400px;
+}
+
+* {
+    border-radius: 0px;
+}
+
+a:hover, a:focus, a:visited {
+    text-decoration: none !important;
+}
+
+.margin-top20 {
+    margin-top: 20px;
+}
+
+.carousel img {
+    width: 100%;
+}
+
+.icon-header {
+    margin-right: 10px;
+}
+
+.header-list {
+    background: #fff !important;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.product-box {
+    border: 1px solid #ccc;
+    padding:5px;
+    margin: 20px 0;
+    position: relative;
+    margin-top: 40px;
+}
+
+.product-box p, .product-box span, .product-box h5, .product-box a {
+    color: #fff !important;
+}
+
+
+.detalle_box p, .detalle_box span, .detalle_box {
+    color: #fff !important;
+    background-color: none !important;
+}
+
+.product-box img {
+    height: 180px !important;
+    width: 100% !important;
+}
+
+.product-box h5 {
+    font-size: 0.9em;
+    min-height: 70px;
+}
+
+.black p, .black a {
+    color: #000;
+}
+
+footer {
+    background: #e1fa58;
+    border-top: 4px solid #000;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.header-title {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    font-family: 'Righteous';
+    color: #fff !important;
+}
+
+.add-cart {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px;
+    color: #fff;
+    background: red;
+    width: 100%;
+    transition: .5s all ease;
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+}
+
+.add-cart:hover, .add-cart:active, .add-cart:focus   {
+    background: #b71414;
+    color: #fff !important;
+}
+
+.table-own > tbody > tr > td {
+    vertical-align: bottom !important;
+}
+
+.boton-margin {
+    margin-right: 10px;
+}
+
+.white p {
+    color: #fff;
+}
+
+.white p > a {
+    color: #fff;
+    font-size: 12px;
+}
+
+.white p > a:hover {
+    color: #ccc;
+}
+
+.small > a {
+    color: #505050 !important;
+}
+
+.see_details {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0);
+    cursor: pointer;
+    position: relative;
+    z-index: 999;
+}
+
+.see_details:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+.add-cart-two {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px;
+    color: #fff;
+    background: red;
+    width: 100%;
+    transition: .5s all ease;
+    margin-top: 2px;
+}
+
+.add-cart-two:hover {
+    background: #b71414;
+    color: #fff;
+}
+
+
+/* OVERWRITE BOOTSTRAP STYLES */
+
+.navbar {
+    border-radius: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.navbar-default {
+    background: #010101 !important;
+    border: none !important;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: yellow !important;
+}
+
+.list-group-item {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.list-group-item > a {
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.list-group-item > a:hover {
+    color: yellow !important;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: yellow !important;
+    background: none !important;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    color: yellow !important;
+    background: none !important;
+}
+
+.list-group-item:first-child, .list-group-item:last-child {
+    border-radius: 0px !important;
+}
+
+.list-group-item {
+    background: transparent !important;
+}
+
+.no-cart {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px;
+    color: #fff;
+    background: #757575;
+    width: 100%;
+    transition: .5s all ease;
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+}
+
+.no-cart:hover, .no-cart:active, .no-cart:focus   {
+    color: #fff !important;
+}
