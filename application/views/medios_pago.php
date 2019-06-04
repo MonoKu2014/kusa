@@ -18,10 +18,29 @@
             <div class="container">
                 <div class="row">
 
+
+                    <div class="col-md-12">
+                        <?php if($this->session->flashdata('error')): ?>
+                            <p class="alert alert-warning">
+                            <b>Lo sentimos, En estos momentos no es posible realizar el pago a través de Webpay</b><br>
+                            La orden de Compra <?= $this->session->id_pedido; ?> fue rechazada<br>
+                            Las posibles causas de este rechazo son:<br>
+                            - Error en el ingreso de los datos de su tarjeta de Crédito o Débito (fecha y/o código de seguridad).<br>
+                            - Su tarjeta de Crédito o Débito no cuenta con saldo suficiente.<br>
+                            - Tarjeta aún no habilitada en el sistema financiero.<br><br>
+
+                            <b>Por favor, intente las siguientes opciones:</b><br>
+                                - Pagar a través de una transferencia bancaria<br>
+                                - Contáctenos a través de alguno de los medios que aparecen acá en el sitio<br>
+                                - Intente una vez más en unos segundos.
+                            </p>
+                        <?php endif; ?>
+                    </div>
+
                     <div class="col-md-8">
                         <div class="about-post-content">
                             <h3 class="text-block text-black text-med text-bold">MEDIOS DE PAGO</h3>
-                                TRANSFERENCIA BANCARIA/  INDICA TU NÚMERO DE CLIENTE EN EL ASUNTO.<br>
+                                TRANSFERENCIA BANCARIA/  INDICA TU NÚMERO DE PEDIDO EN EL ASUNTO (NÚMERO <?= $this->session->id_pedido; ?>).<br>
                                 Datos de Transferencia Kusa<br><br>
                                 Nombre: Lugh SpA<br>
 
@@ -35,7 +54,7 @@
 
                                 E-Mail para confirmación: pagos@kusa.cl<br>
 
-                                Asunto: Escribe tu número de pedido asignado<br>
+                                Asunto: Pago pedido número <?= $this->session->id_pedido; ?><br>
                                 <br>
                                 Cualquier duda o consulta llámanos al FONO ASISTENCIA o también vía Whatsapp
 

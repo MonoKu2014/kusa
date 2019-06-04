@@ -55,29 +55,19 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">
-        KUSA
+        PANEL DE CONTROL KUSA.CL
       </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Links<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://www.google.ch" target="_blank">My Webmail</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="http://www.google.ch" target="_blank">Timelogger</a></li>
-            <li><a href="http://www.cubetech.ch" target="_blank">cubetech.ch</a></li>
-         </ul>
-        </li>
          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
           <?= $this->session->nombre;?><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="http://www.fgruber.ch/" target="_blank"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> User Settings</a></li>
-            <li><a href="/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+            <li><a href="<?= base_url();?>cuenta" target="_blank"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mis datos</a></li>
+            <li><a href="<?= base_url();?>login/cerrar_sesion"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Cerrar sesión</a></li>
          </ul>
         </li>
       </ul>

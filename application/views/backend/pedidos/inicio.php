@@ -48,10 +48,24 @@
 								  Acciones
 								  <span class="caret"></span></button>
 								  <ul class="dropdown-menu" style="font-size: 12px;">
-								  <li><a href="<?= base_url();?>pedidos/detalle/<?= $p->id_pedido;?>">Ver Detalle</a></li>
-								  <li><a href="#" data-id="<?= $p->id_pedido;?>" class="confirmar">Confirmar pago</a></li>
-								  <li><a href="#" data-id="<?= $p->id_pedido;?>" class="cancelar">Cancelar pedido</a></li>
-								  <li><a href="#" data-id="<?= $p->id_pedido;?>" class="entregado">Marcar como entregado</a></li>
+
+									<li><a href="<?= base_url();?>pedidos/detalle/<?= $p->id_pedido;?>">Ver Detalle</a></li>
+									<?php if($p->estado_pedido == 0):?>
+										<li><a href="#" data-id="<?= $p->id_pedido;?>" class="pagado">Pagado</a></li>
+									<?php endif;?>
+									<?php if($p->estado_pedido == 1):?>
+										<li><a href="#" data-id="<?= $p->id_pedido;?>" class="preparando_productos">Preparando productos</a></li>
+									<?php endif;?>
+									<?php if($p->estado_pedido == 2):?>
+										<li><a href="#" data-id="<?= $p->id_pedido;?>" class="despachados">Productos despachados</a></li>
+									<?php endif;?>
+									<?php if($p->estado_pedido == 3):?>
+										<li><a href="#" data-id="<?= $p->id_pedido;?>" class="entregado">Productos entregados</a></li>
+									<?php endif;?>
+									<?php if($p->estado_pedido == 0):?>
+										<li><a href="#" data-id="<?= $p->id_pedido;?>" class="cancelar">Cancelar pedido</a></li>
+									<?php endif;?>
+
 								  </ul>
 								</div>
 				                </td>
@@ -67,6 +81,32 @@
 <script>
 $(document).ready(function(){
 
+
+	//estado 0 permite marcar pagado
+	$('.pagado').on('click', function(e){
+		e.preventDefault();
+		id = $(this).attr('data-id');
+		pagado(id, 'pedidos/pagado');
+	});
+
+
+	//estado 1 permite preparar productos
+	$('.preparando_productos').on('click', function(e){
+		e.preventDefault();
+		id = $(this).attr('data-id');
+		preparando_productos(id, 'pedidos/preparando_productos');
+	});
+
+
+	//estado 2 permite marcar como despachados
+	$('.despachados').on('click', function(e){
+		e.preventDefault();
+		id = $(this).attr('data-id');
+		despachados(id, 'pedidos/despachados');
+	});
+
+
+	//estado 3 permite marcar como entregados
 	$('.entregado').on('click', function(e){
 		e.preventDefault();
 		id = $(this).attr('data-id');
@@ -74,13 +114,7 @@ $(document).ready(function(){
 	});
 
 
-	$('.confirmar').on('click', function(e){
-		e.preventDefault();
-		id = $(this).attr('data-id');
-		confirmar(id, 'pedidos/confirmar');
-	});
-
-
+	//estado 0 permite marcar cancelar
 	$('.cancelar').on('click', function(e){
 		e.preventDefault();
 		id = $(this).attr('data-id');

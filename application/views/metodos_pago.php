@@ -25,7 +25,7 @@
 <br>
 
 
-TRANSFERENCIA BANCARIA/  INDICA TU NÚMERO DE CLIENTE EN EL ASUNTO.<br>
+TRANSFERENCIA BANCARIA/  INDICA TU NÚMERO DE PEDIDO EN EL ASUNTO (ej: 999).<br>
 
 
 Datos de Transferencia Kusa<br><br>
@@ -41,7 +41,7 @@ Número de Cuenta: 973949616<br>
 
 E-Mail para confirmación: pagos@kusa.cl<br>
 
-Asunto: Escribe tu número de pedido asignado<br>
+Asunto: Pago pedido número 999<br>
 <br>
 
 

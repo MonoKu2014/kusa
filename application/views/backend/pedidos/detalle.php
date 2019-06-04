@@ -20,10 +20,13 @@
 			<?= $this->session->flashdata('mensaje');?>
 
 				<h4>Datos del cliente</h4>
-				<p>
+				<p style="font-size: 14px;">
 				Nombre: <?= $pedido[0]->nombre_cliente;?><br>
 				Email: <?= $pedido[0]->email_cliente;?><br>
-				Fono: <?= $pedido[0]->fono_cliente;?>
+				Fono: <?= $pedido[0]->fono_cliente;?><br>
+                Dirección de entrega:
+                <?= $pedido[0]->calle_direccion;?> <?= $pedido[0]->numero_direccion;?>,
+                <?= region($pedido[0]->region_direccion);?>, <?= commune($pedido[0]->comuna_direccion);?>
 				</p>
 
 				<h4>Pedido del carro</h4>
@@ -32,29 +35,24 @@
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Precio</th>
-                        <th>Total</th>
+                        <th>SubTotal</th>
                     </thead>
                     <tbody>
                     <?php $subtotal = 0; ?>
-                    <?php foreach ($pedido as $p): ?>
+                    <?php foreach ($productos as $p): ?>
                         <tr>
-                            <td><?= $p->nombre_producto;?></td>
-                            <td><?= $p->cantidad_producto;?></td>
-                            <td><?= $p->valor_venta;?></td>
-                            <td><?= $p->cantidad_producto * $p->valor_venta;?></td>
+                            <td><?= $p->nombre;?></td>
+                            <td><?= $p->cantidad;?></td>
+                            <td><?= $this->functions->moneda($p->precio);?></td>
+                            <td><?= $this->functions->moneda($p->cantidad * $p->precio);?></td>
                         </tr>
 
                       <?php
-                      $subtotal = $subtotal + ($p->valor_venta * $p->cantidad_producto);
-                      $subtotal_parcial = $subtotal;
+                      $subtotal = $subtotal + ($p->precio * $p->cantidad);
                       ?>
 
 
                     <?php endforeach ?>
-
-                      <?php
-                      $subtotal = $this->functions->suma_despacho($subtotal, $p->comuna_dato);
-                      ?>
 
                     <tr>
                         <td colspan="4" class="text-right">
@@ -63,18 +61,6 @@
                     </tr>
                     </tbody>
                 </table>
-
-				<h4>Datos de despacho</h4>
-
-				<div class="clearfix"></div>
-
-				<p>
-				Nombre: <?= $pedido[0]->nombre_dato;?><br>
-				Comuna: <?= $pedido[0]->comuna_dato;?><br>
-				Dirección: <?= $pedido[0]->direccion_dato;?><br>
-				Fono: <?= $pedido[0]->fono_dato;?><br>
-				Comentarios: <?= $pedido[0]->comentario_dato;?><br>
-				</p>
 
 
 		</div>

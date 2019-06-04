@@ -48,33 +48,64 @@ class Productos extends CI_Controller {
         $imagenes = [];
         $directorio = 'assets/manager/productos/';
 
-        if($_FILES['imagenes']['name'][0] == ''){
+        if($_FILES['imagen_uno']['name'] == ''){
             $this->session->set_flashdata('mensaje', alert_danger('Agrega mínimo una imagen'));
             redirect(base_url().'productos/agregar');
         }
 
-        for ($x = 0; $x < 4; $x++) {
-
-            $imagenes[$x] = '';
-
-            if(isset($_FILES['imagenes']['name'][$x])){
-
-                $temporal = $_FILES['imagenes']['tmp_name'][$x];
-
-                list($width, $height, $type, $attr) = getimagesize($temporal);
-                $ext = pathinfo($nombre, PATHINFO_EXTENSION);
-
-                if($width == $height){
-                    if($ext == 'jpg' || $ext == 'png'){
-                        $imagenes[$x] = $_FILES['imagenes']['name'][$x];
-                        copy($_FILES['imagenes']['tmp_name'][$x], $directorio.$_FILES['imagenes']['name'][$x]);
-                    }
+        if($_FILES['imagen_uno']['name'] != ''){
+            $temporal = $_FILES['imagen_uno']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_uno = $_FILES['imagen_uno']['name'];
+                    copy($_FILES['imagen_uno']['tmp_name'], $directorio.$_FILES['imagen_uno']['name']);
                 }
             }
         }
 
+        if($_FILES['imagen_dos']['name'] != ''){
+            $temporal = $_FILES['imagen_dos']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_dos = $_FILES['imagen_dos']['name'];
+                    copy($_FILES['imagen_dos']['tmp_name'], $directorio.$_FILES['imagen_dos']['name']);
+                }
+            }
+        } else {
+            $imagen_dos = '';
+        }
+
+        if($_FILES['imagen_tres']['name'] != ''){
+            $temporal = $_FILES['imagen_tres']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_tres = $_FILES['imagen_tres']['name'];
+                    copy($_FILES['imagen_tres']['tmp_name'], $directorio.$_FILES['imagen_tres']['name']);
+                }
+            }
+        } else {
+            $imagen_tres = '';
+        }
+
+        if($_FILES['imagen_cuatro']['name'] != ''){
+            $temporal = $_FILES['imagen_cuatro']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_cuatro = $_FILES['imagen_cuatro']['name'];
+                    copy($_FILES['imagen_cuatro']['tmp_name'], $directorio.$_FILES['imagen_cuatro']['name']);
+                }
+            }
+        } else {
+            $imagen_cuatro = '';
+        }
+
+
         $directorio_fichas = 'assets/manager/fichas/';
-        if($_FILES['ficha']['name'] == ''){
+        if($_FILES['ficha']['name'] != ''){
             copy($_FILES['ficha']['tmp_name'], $directorio_fichas.$_FILES['ficha']['name']);
             $ficha = $_FILES['ficha']['name'];
         } else {
@@ -97,10 +128,10 @@ class Productos extends CI_Controller {
                 'descripcion_producto' => $this->input->post('descripcion'),
                 'stock_real' => $this->input->post('stock'),
                 'precio_oferta' => $this->input->post('precio_oferta'),
-                'imagen_1' => $imagenes[0],
-                'imagen_2' => $imagenes[1],
-                'imagen_3' => $imagenes[2],
-                'imagen_4' => $imagenes[3],
+                'imagen_1' => $imagen_uno,
+                'imagen_2' => $imagen_dos,
+                'imagen_3' => $imagen_tres,
+                'imagen_4' => $imagen_cuatro,
                 'ficha_producto' => $ficha
             );
         	$insert = $this->producto->insertar($data);
@@ -134,18 +165,68 @@ class Productos extends CI_Controller {
 	{
 
         $error = 0;
+        $imagenes = [];
+        $directorio = 'assets/manager/productos/';
 
-            $file = $_FILES['imagen'];
-            $temporal = $file['tmp_name'];
-            $nombre = $file['name'];
-
-            if($nombre == ''){
-                $imagen = $this->input->post('imagen_actual');
-            } else {
-                $imagen = $nombre;
-                $directorio = 'assets/manager/productos/';
-                copy($temporal, $directorio.$nombre);
+        if($_FILES['imagen_uno']['name'] != ''){
+            $temporal = $_FILES['imagen_uno']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_uno = $_FILES['imagen_uno']['name'];
+                    copy($_FILES['imagen_uno']['tmp_name'], $directorio.$_FILES['imagen_uno']['name']);
+                }
             }
+        } else {
+            $imagen_uno = $this->input->post('imagen_actual_1');
+        }
+
+        if($_FILES['imagen_dos']['name'] != ''){
+            $temporal = $_FILES['imagen_dos']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_dos = $_FILES['imagen_dos']['name'];
+                    copy($_FILES['imagen_dos']['tmp_name'], $directorio.$_FILES['imagen_dos']['name']);
+                }
+            }
+        } else {
+            $imagen_dos = $this->input->post('imagen_actual_2');
+        }
+
+        if($_FILES['imagen_tres']['name'] != ''){
+            $temporal = $_FILES['imagen_tres']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_tres = $_FILES['imagen_tres']['name'];
+                    copy($_FILES['imagen_tres']['tmp_name'], $directorio.$_FILES['imagen_tres']['name']);
+                }
+            }
+        } else {
+            $imagen_tres = $this->input->post('imagen_actual_3');
+        }
+
+        if($_FILES['imagen_cuatro']['name'] != ''){
+            $temporal = $_FILES['imagen_cuatro']['tmp_name'];
+            list($width, $height, $type, $attr) = getimagesize($temporal);
+            if($width == $height){
+                if($type == 2 || $type == 3){
+                    $imagen_cuatro = $_FILES['imagen_cuatro']['name'];
+                    copy($_FILES['imagen_cuatro']['tmp_name'], $directorio.$_FILES['imagen_cuatro']['name']);
+                }
+            }
+        } else {
+            $imagen_cuatro = $this->input->post('imagen_actual_4');
+        }
+
+        $directorio_fichas = 'assets/manager/fichas/';
+        if($_FILES['ficha']['name'] != ''){
+            copy($_FILES['ficha']['tmp_name'], $directorio_fichas.$_FILES['ficha']['name']);
+            $ficha = $_FILES['ficha']['name'];
+        } else {
+            $ficha = '';
+        }
 
         $this->form_validation->set_rules('nombre', 'Nombre', 'required');
         $this->form_validation->set_rules('categoria', 'Categoria', 'required');
@@ -154,17 +235,20 @@ class Productos extends CI_Controller {
         if($this->form_validation->run() === FALSE){
             $error = 1;
         } else {
-            $data = array(
-                'nombre_producto' => $this->input->post('nombre'),
+        	$data = array(
+        		'nombre_producto' => $this->input->post('nombre'),
                 'codigo_producto' => $this->input->post('codigo'),
-                'id_categoria' => $this->input->post('categoria'),
-                'precio_producto' => $this->input->post('precio'),
-                'imagen_producto' => $imagen,
-                'id_estado' => $this->input->post('estado'),
-                'destacado' => $this->input->post('destacado'),
+        		'id_categoria' => $this->input->post('categoria'),
+				'precio_producto' => $this->input->post('precio'),
+				'id_estado' => $this->input->post('estado'),
                 'descripcion_producto' => $this->input->post('descripcion'),
                 'stock_real' => $this->input->post('stock'),
-                'precio_oferta' => $this->input->post('precio_oferta')
+                'precio_oferta' => $this->input->post('precio_oferta'),
+                'imagen_1' => $imagen_uno,
+                'imagen_2' => $imagen_dos,
+                'imagen_3' => $imagen_tres,
+                'imagen_4' => $imagen_cuatro,
+                'ficha_producto' => $ficha
             );
             $insert = $this->producto->editar($data, $this->input->post('id_producto'));
             if ($insert === false){
@@ -190,7 +274,7 @@ class Productos extends CI_Controller {
             $this->session->set_flashdata('mensaje', alert_success('Registro eliminado con éxito'));
             redirect(base_url().'productos');
         } else {
-            $this->session->set_flashdata('mensaje', alert_success('No se ha podido eliminar el registro'));
+            $this->session->set_flashdata('mensaje', alert_danger('No se ha podido eliminar el registro'));
             redirect(base_url().'productos');
         }
     }
@@ -205,7 +289,7 @@ class Productos extends CI_Controller {
             $this->session->set_flashdata('mensaje', alert_success('Registro activado con éxito'));
             redirect(base_url().'productos');
         } else {
-            $this->session->set_flashdata('mensaje', alert_success('No se ha podido activar el registro'));
+            $this->session->set_flashdata('mensaje', alert_danger('No se ha podido activar el registro'));
             redirect(base_url().'productos');
         }
     }
@@ -219,7 +303,7 @@ class Productos extends CI_Controller {
             $this->session->set_flashdata('mensaje', alert_success('Registro desactivado con éxito'));
             redirect(base_url().'productos');
         } else {
-            $this->session->set_flashdata('mensaje', alert_success('No se ha podido desactivar el registro'));
+            $this->session->set_flashdata('mensaje', alert_danger('No se ha podido desactivar el registro'));
             redirect(base_url().'productos');
         }
     }
@@ -234,6 +318,35 @@ class Productos extends CI_Controller {
         $nombre_archivo = 'Productos_'.date('d-m-Y').'.xlsx';
 
         main_export($nombre_archivo, $usuarios, $cabeceras);
+    }
+
+
+	public function relacionar($id_producto)
+	{
+        $data['producto'] = $this->producto->obtener($id_producto);
+        $data['posibles'] = $this->producto->listar_para_relaciones($id_producto);
+		$this->load->view('backend/includes/header');
+		$this->load->view('backend/includes/nav');
+		$this->load->view('backend/productos/relacionar', $data);
+		$this->load->view('backend/includes/footer');
+    }
+    
+    public function guarda_relaciones()
+    {
+        $producto = $this->input->post('id_producto');
+        $relaciones = $this->input->post('relacion');
+
+        foreach ($relaciones as $key => $value) {
+            $data = array(
+                'id_producto_padre' => $producto,
+                'id_producto_relacionado' => $key
+            );
+            $this->producto->insertar_relacion($data);
+            unset($data);
+        }
+
+        $this->session->set_flashdata('mensaje', alert_success('Relaciones guardadas con éxito'));
+        redirect(base_url().'productos');
     }
 
 

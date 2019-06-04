@@ -15,7 +15,8 @@ class Categorias extends CI_Controller {
 
 	public function index()
 	{
-		$data['categorias'] = $this->categorias->listar();
+        $data['planes'] = $this->categorias->listar('plan');
+        $data['productos'] = $this->categorias->listar('producto');
 		$this->load->view('backend/includes/header');
 		$this->load->view('backend/includes/nav');
 		$this->load->view('backend/categorias/inicio', $data);
@@ -167,5 +168,35 @@ class Categorias extends CI_Controller {
             redirect(base_url().'categorias');
         }
     }
+
+
+    public function orden_planes()
+    {
+        $planes = $this->input->post('plan');
+
+        foreach ($planes as $key => $value) {
+            $array = array('orden' => $value);
+            $this->categorias->editar($array, $key);
+            unset($array);
+        }
+
+        $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('El orden de planes ha sido actualizado correctamente'));
+        redirect(base_url().'categorias');
+    }
+
+    public function orden_categorias_productos()
+    {
+        $planes = $this->input->post('producto');
+
+        foreach ($planes as $key => $value) {
+            $array = array('orden' => $value);
+            $this->categorias->editar($array, $key);
+            unset($array);
+        }
+
+        $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('El orden de categorías de tienda ha sido actualizado correctamente'));
+        redirect(base_url().'categorias');
+    }
+
 
 }

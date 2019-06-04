@@ -89,7 +89,10 @@
 						<br>
 						Máximo 4 imagenes, mínimo 1
 					</p>
-					<input type="file" name="imagenes[]" placeholder="Subir imagenes" class="form-control multi with-preview" maxlength="4">
+					<input type="file" name="imagen_uno" placeholder="Subir imagen" class="form-control"><br>
+					<input type="file" name="imagen_dos" placeholder="Subir imagen" class="form-control"><br>
+					<input type="file" name="imagen_tres" placeholder="Subir imagen" class="form-control"><br>
+					<input type="file" name="imagen_cuatro" placeholder="Subir imagen" class="form-control">
 				</div>
 
 

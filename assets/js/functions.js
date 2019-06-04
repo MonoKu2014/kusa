@@ -15,6 +15,7 @@ $(document).ready(function(){
 
 
     $('.add-to-cart').on('click', function(event){
+        $(this).attr('disabled', true);
         event.preventDefault();
         $(this).addClass('disabled-button');
         $(this).attr('disabled', true);

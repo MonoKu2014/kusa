@@ -9,7 +9,7 @@ class ProductosModel extends CI_Model {
 
         public function __construct()
         {
-                parent::__construct();
+            parent::__construct();
         }
 
 
@@ -17,7 +17,7 @@ class ProductosModel extends CI_Model {
         public function listar()
         {
             $this->db->order_by('nombre_producto', 'asc');
-            $this->db->join('categorias c', 'p.id_categoria = c.id_categoria');
+            $this->db->join('categorias c', 'p.id_categoria = c.id_categoria', 'left');
             $this->db->select('p.*, c.nombre_categoria');
             $query = $this->db->get('productos p');
             return $query->result();
@@ -49,7 +49,7 @@ class ProductosModel extends CI_Model {
 
         public function obtener($id_producto)
         {
-            $this->db->join('categorias', $this->table.'.id_categoria = categorias.id_categoria');
+            $this->db->join('categorias', $this->table.'.id_categoria = categorias.id_categoria', 'left');
             $this->db->where('id_producto', $id_producto);
             $query = $this->db->get($this->table);
             return $query->result();
@@ -112,6 +112,19 @@ class ProductosModel extends CI_Model {
             $this->db->join('categorias c', 'p.id_categoria = c.id_categoria');
             return $query = $this->db->get('productos p');
 
+        }
+
+
+        public function listar_para_relaciones($id)
+        {
+            $this->db->where('id_producto !=', $id);
+            $query = $this->db->get('productos');
+            return $query->result();
+        }
+
+        public function insertar_relacion($data)
+        {
+            return $this->db->insert('relacionados', $data);
         }
 
 }

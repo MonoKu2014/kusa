@@ -60,7 +60,14 @@
 
                                     <hr>
 
-                                    <span class="product-price m-b-15">Precio: <span class="green">$<?= money($producto->precio_producto); ?></span></span>
+                                    <span class="product-price m-b-15">Precio: 
+                                    <?php if($producto->precio_oferta > 0): ?>
+                                        <span class="gray small tached">$<?= money($producto->precio_producto); ?></span>
+                                        <span class="green">$<?= money($producto->precio_oferta); ?></span>
+                                    <?php else:?>
+                                        <span class="green">$<?= money($producto->precio_producto); ?></span>
+                                    <?php endif;?>
+                                    </span>
 
                                     <hr>
 
@@ -106,7 +113,12 @@
                                         <a href="<?= base_url();?>web/producto/<?= slug_prod($relacion->id_producto, $relacion->nombre_producto); ?>"><?= $relacion->nombre_producto; ?></a>
                                     </h4>
                                     <div class="info">
-                                        <span class="price">$<?= money($relacion->precio_producto); ?></span>
+                                        <?php if($relacion->precio_oferta > 0): ?>
+                                            <span class="gray small tached">$<?= money($relacion->precio_producto); ?></span>
+                                            <span class="price">$<?= money($relacion->precio_oferta); ?></span>
+                                        <?php else:?>
+                                            <span class="price">$<?= money($relacion->precio_producto); ?></span>
+                                        <?php endif;?>
                                     </div>
                                 </div>
                             </div>

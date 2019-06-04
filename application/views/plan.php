@@ -10,7 +10,7 @@
                         <a href="<?= base_url(); ?>web/planes">LISTADO PLANES </a>
                     </li>
                     <li>
-                        <a href="<?= base_url(); ?>web/productos_planes/<?= slug_cat($producto->id_categoria, $producto->nombre_categoria); ?>">LISTADO PLANES </a>
+                        <a href="<?= base_url(); ?>web/productos_planes/<?= slug_cat($producto->id_categoria, $producto->nombre_categoria); ?>"><?= strtoupper($producto->nombre_categoria); ?> </a>
                     </li>
                     <li>
                         <a href="<?= base_url(); ?>web/plan/<?= slug_cat($producto->id_categoria, $producto->nombre_producto); ?>">DETALLE PLAN</a>
@@ -29,9 +29,21 @@
                             <div class="col-md-8">
                                 <div class="product-image-content m-b-30">
                                     <div class="owl-carousel" data-carousel-items="1" data-carousel-dotsData="true" data-carousel-nav="true" data-carousel-dots="true" data-carousel-xs="1" data-carousel-sm="1" data-carousel-md="1" data-carousel-lg="1" data-carousel-animateout="fadeOut" data-carousel-animatein="fadeIn">
-                                        <img data-dot="&lt;img src='<?= base_url();?>assets/images/hasta100-1.jpg'&gt;" src="<?= base_url();?>assets/images/hasta100-1.jpg" alt="que aqui vaya el titulo del producto">
-                                        <img data-dot="&lt;img src='<?= base_url();?>assets/images/ejemplo-plan.jpg'&gt;" src="<?= base_url();?>assets/images/ejemplo-plan.jpg" alt="que aqui vaya el titulo del producto">
-                                        <img data-dot="&lt;img src='<?= base_url();?>assets/images/ejemplo-plan2.jpg'&gt;" src="<?= base_url();?>assets/images/ejemplo-plan2.jpg" alt="que aqui vaya el titulo del producto">
+                                        <?php if($producto->imagen_1 != ''): ?>
+                                            <img data-dot="&lt;img src='<?= base_url();?>assets/manager/productos/<?= $producto->imagen_1; ?>'&gt;" src="<?= base_url();?>assets/manager/productos/<?= $producto->imagen_1; ?>" alt="que aqui vaya el titulo del producto">
+                                        <?php endif; ?>
+
+                                        <?php if($producto->imagen_2 != ''): ?>
+                                            <img data-dot="&lt;img src='<?= base_url();?>assets/manager/productos/<?= $producto->imagen_2; ?>'&gt;" src="<?= base_url();?>assets/manager/productos/<?= $producto->imagen_2; ?>" alt="que aqui vaya el titulo del producto">
+                                        <?php endif; ?>
+
+                                        <?php if($producto->imagen_3 != ''): ?>
+                                            <img data-dot="&lt;img src='<?= base_url();?>assets/manager/productos/<?= $producto->imagen_3; ?>'&gt;" src="<?= base_url();?>assets/manager/productos/<?= $producto->imagen_3; ?>" alt="que aqui vaya el titulo del producto">
+                                        <?php endif; ?>
+
+                                        <?php if($producto->imagen_4 != ''): ?>
+                                            <img data-dot="&lt;img src='<?= base_url();?>assets/manager/productos/<?= $producto->imagen_4; ?>'&gt;" src="<?= base_url();?>assets/manager/productos/<?= $producto->imagen_4; ?>" alt="que aqui vaya el titulo del producto">
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +63,14 @@
 
                                     <hr>
 
-                                    <span class="product-price m-b-15">Precio: <span class="green">$<?= money($producto->precio_producto); ?></span></span>
+                                    <span class="product-price m-b-15">Precio: 
+                                    <?php if($producto->precio_oferta > 0): ?>
+                                        <span class="gray small tached">$<?= money($producto->precio_producto); ?></span>
+                                        <span class="green">$<?= money($producto->precio_oferta); ?></span>
+                                    <?php else:?>
+                                        <span class="green">$<?= money($producto->precio_producto); ?></span>
+                                    <?php endif;?>
+                                    </span>
                                     <small>
                                         Todos los planes incluyen IVA<br>
                                         10% descuento para contratos con Pago Automático PAC<br>

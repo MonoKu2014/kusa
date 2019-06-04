@@ -18,10 +18,17 @@
         <!-- section article about us / start-->
         <article class="section about-post bg-white p-t-90 p-b-100">
             <div class="container">
+                <div class="col-lg-12">
+                    <?php if($this->session->flashdata('error')){
+                        echo alert_info('Para poder comprar debes iniciar tu sesión o regístrarte');
+                    } ?>
+                </div>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="col-lg-12">
+
                         <?= $this->session->flashdata('mensaje'); ?>
+                        
                         <h3 class="text-block text-black ">ACCEDE A TU CUENTA</h3>
                         <form class="woo-checkout-form" action="<?= base_url();?>web/ingresar" method="post">
                             <div class="checkout-block checkout-billing">
@@ -55,13 +62,13 @@
                                 <div class="row">
                                     <div class="row-cs">
                                         <div class="col-md-4 form-group p-r-5">
-                                            <input class="au-input-1" type="text" placeholder="Nombre" name="nombre" required pattern="^[A-Za-z]+$" maxlength="35">
+                                            <input class="au-input-1" type="text" placeholder="Nombre" name="nombre" required pattern="^[A-Za-z\s]+$" maxlength="35">
                                         </div>
                                         <div class="col-md-4 form-group p-r-5">
-                                            <input class="au-input-1" type="text" placeholder="Apellido Paterno" name="paterno" required pattern="^[A-Za-z]+$" maxlength="35">
+                                            <input class="au-input-1" type="text" placeholder="Apellido Paterno" name="paterno" required pattern="^[A-Za-z\s]+$" maxlength="35">
                                         </div>
                                         <div class="col-md-4 form-group p-r-5">
-                                            <input class="au-input-1" type="text" placeholder="Apellido Materno" name="materno" required pattern="^[A-Za-z]+$" maxlength="35">
+                                            <input class="au-input-1" type="text" placeholder="Apellido Materno" name="materno" required pattern="^[A-Za-z\s]+$" maxlength="35">
                                         </div>
                                     </div>
                                     <div class="row-cs">
@@ -122,7 +129,7 @@
                                     </div>
                                     <div class="row-cs">
                                         <div class="col-md-8 form-group p-r-5">
-                                            <input class="au-input-1" type="text" placeholder="Dirección" name="direccion" required pattern="^[A-Za-z]+$" maxlength="100">
+                                            <input class="au-input-1" type="text" placeholder="Dirección" name="direccion" required pattern="^[A-Za-z\s]+$" maxlength="100">
                                         </div>
                                         <div class="col-md-4 form-group p-r-5">
                                             <input class="au-input-1" type="text" placeholder="Número" name="numero" required pattern="^(0|[1-9][0-9]*)$" maxlength="8">

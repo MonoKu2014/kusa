@@ -407,19 +407,27 @@ class FunctionsModel extends CI_Model {
         {
 
             if($id_estado == 0){
-                return '<span class="label label-danger">Cancelado</span>';
+                return '<span class="label label-default">Pendiente</span>';
             }
 
             if($id_estado == 1){
-                return '<span class="label label-info">Pendiente</span>';
+                return '<span class="label label-info">Pagado</span>';
             }
 
             if($id_estado == 2){
-                return '<span class="label label-warning">Pagado</span>';
+                return '<span class="label label-warning">Preparando Productos</span>';
             }
 
             if($id_estado == 3){
-                return '<span class="label label-success">Entregado</span>';
+                return '<span class="label label-success">Productos Despachados</span>';
+            }
+
+            if($id_estado == 4){
+                return '<span class="label label-primary">Productos Entregados</span>';
+            }
+
+            if($id_estado == 5){
+                return '<span class="label label-danger">Pedido cancelado</span>';
             }
 
         }

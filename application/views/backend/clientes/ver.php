@@ -22,27 +22,32 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 jumbotron">
 
                     <div class="col-lg-12">
-                        <h5 style="font-weight: bold;">Nombre Completo</h5>
+                        <span style="font-weight: bold;">Nombre Completo</span>
                         <?= $cliente[0]->nombre_cliente; ?>
                         <?= $cliente[0]->apellidop_cliente; ?>
                         <?= $cliente[0]->apellidom_cliente; ?>
                     </div>
-
                     <div class="col-lg-12">
-                        <h5 style="font-weight: bold;">E-mail</h5>
+                        <span style="font-weight: bold;">Rut</span>
+                        <?= $cliente[0]->rut_cliente; ?>
+                    </div>
+                    <div class="col-lg-12">
+                        <span style="font-weight: bold;">E-mail</span>
                         <?= $cliente[0]->email_cliente; ?>
+                    </div>
+                    <div class="col-lg-12">
+                        <span style="font-weight: bold;">Password</span>
+                        <?= $cliente[0]->password_cliente; ?>
                     </div>
 
                     <div class="col-lg-12">
-                        <h5 style="font-weight: bold;">Fono</h5>
-
+                        <span style="font-weight: bold;">Fono</span>
                         <?php if($cliente[0]->fono_cliente == ''){
                             echo 'No registrado';
                         } else {
                             echo $cliente[0]->fono_cliente;
                         }
                         ?>
-
                     </div>
 
                     <div class="col-lg-12">

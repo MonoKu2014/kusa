@@ -40,10 +40,16 @@ class PedidosModel extends CI_Model {
         public function obtener($id_pedido)
         {
             $this->db->where('p.id_pedido', $id_pedido);
+            $this->db->join('clientes_direcciones cd', 'cd.id_cliente = p.id_cliente');
             $this->db->join('clientes c', 'p.id_cliente = c.id_cliente');
             $this->db->join('productos_pedido pp', 'pp.id_pedido = p.id_pedido');
             $this->db->join('productos pro', 'pro.id_producto = pp.id_producto');
             return $this->db->get('pedidos p')->result();
+        }
+
+        public function insertar_tracking_inicial($data)
+        {
+            $this->db->insert('tracking_pedidos', $data);
         }
 
         public function obtener_productos_pedido($id_pedido)

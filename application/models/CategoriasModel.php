@@ -12,9 +12,12 @@ class CategoriasModel extends CI_Model {
                 parent::__construct();
         }
 
-        public function listar()
+        public function listar($tipo = null)
         {
             $this->db->order_by('nombre_categoria', 'asc');
+            if($tipo !== null){
+                $this->db->where('tipo', $tipo);
+            }
             $this->db->join('estados_usuarios', $this->table.'.id_estado = estados_usuarios.id_estado');
             $query = $this->db->get($this->table);
             return $query->result();
@@ -55,8 +58,6 @@ class CategoriasModel extends CI_Model {
             $query = $this->db->get($this->table);
             return $query->result();
         }
-
-
 
 
 }

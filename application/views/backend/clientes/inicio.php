@@ -30,6 +30,7 @@
 				        <thead>
 				            <tr>
 				                <th>Nombre</th>
+								<th>Rut</th>
 				                <th>Email</th>
                                 <th>Fono</th>
 				                <th>Estado</th>
@@ -40,6 +41,7 @@
 				        	<?php foreach($clientes as $c){ ?>
 				            <tr>
 				                <td><?= $c->nombre_cliente;?> <?= $c->apellidop_cliente;?> <?= $c->apellidom_cliente;?></td>
+								<td><?= $c->rut_cliente;?></td>
 				                <td><?= $c->email_cliente;?></td>
                                 <td><?= $c->fono_cliente;?></td>
 				                <td><?= $c->estado;?></td>

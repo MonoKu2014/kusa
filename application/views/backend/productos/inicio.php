@@ -59,8 +59,7 @@
 								  	<?php } else { ?>
 										<a title="DESACTIVAR" href="#" data-id="<?= $u->id_producto;?>" class="desactivar btn btn-danger"><i class="fa fa-power-off"></i></a>
 									<?php } ?>
-
-
+									<a title="RELACIONAR PRODUCTOS" href="productos/relacionar/<?= $u->id_producto;?>" class="btn btn-success"><i class="fa fa-exchange"></i></a>
 				                </td>
 				            </tr>
 				        	<?php } ?>

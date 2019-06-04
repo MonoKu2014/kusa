@@ -42,6 +42,7 @@ for ($x = 1; $x < 5; $x++) {
 			<input type="hidden" name="imagen_actual_2" value="<?= $producto[0]->imagen_2;?>">
 			<input type="hidden" name="imagen_actual_3" value="<?= $producto[0]->imagen_3;?>">
 			<input type="hidden" name="imagen_actual_4" value="<?= $producto[0]->imagen_4;?>">
+			<input type="hidden" name="ficha_actual" value="<?= $producto[0]->ficha_producto;?>">
 
 				<p>Estas son las imágenes de tu producto</p>
 				<div class="col-md-2">
@@ -116,8 +117,8 @@ for ($x = 1; $x < 5; $x++) {
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<span>Estado(*):</span>
 					<select name="estado" class="form-control" required>
-						<option <?php if($producto[0]->id_estado == 0){echo 'selected';} ?> value="0">Activo</option>
-						<option <?php if($producto[0]->id_estado == 1){echo 'selected';} ?> value="1">Inactivo</option>
+						<option <?php if($producto[0]->id_estado == 1){echo 'selected';} ?> value="1">Activo</option>
+						<option <?php if($producto[0]->id_estado == 0){echo 'selected';} ?> value="0">Inactivo</option>
 					</select>
 				</div>
 
@@ -142,9 +143,12 @@ for ($x = 1; $x < 5; $x++) {
 					<p class="bg-info" style="font-size:12px;">
 						La imagenes deben ser cuadradas para mantener el aspecto ordenado del sitio (por ejemplo 400x400, 600x600, etc...), sólo se aceptan jpg y png
 						<br>
-						Máximo 4 imagenes, mínimo 1
+						Para cambiarlas, sólo sube nuevas imágenes
 					</p>
-					<input type="file" name="imagenes[]" placeholder="Subir imagenes" class="form-control multi with-preview" maxlength="<?= $cantidad;?>">
+					<input type="file" name="imagen_uno" placeholder="Subir imagen" class="form-control"><br>
+					<input type="file" name="imagen_dos" placeholder="Subir imagen" class="form-control"><br>
+					<input type="file" name="imagen_tres" placeholder="Subir imagen" class="form-control"><br>
+					<input type="file" name="imagen_cuatro" placeholder="Subir imagen" class="form-control">
 				</div>
 
 
