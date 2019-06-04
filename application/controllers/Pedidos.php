@@ -52,9 +52,18 @@ class Pedidos extends CI_Controller {
 
     public function entregado($id)
     {
-        $data = array('estado_pedido' => 3);
+        $data = array('estado_pedido' => 4);
         $entregado = $this->pedido->editar($data, $id);
         if($entregado === true){
+
+            $data_tracking = array(
+                'id_pedido' => $id,
+                'etapa_tracking' => 4,
+                'fecha_tracking' => date('d-m-Y'),
+                'hora_tracking' => date('H:i')
+            );
+            $this->pedido->insertar_tracking_inicial($data_tracking);
+
             $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('Registro marcado como ENTREGADO con éxito'));
             redirect(base_url().'pedidos');
         } else {
@@ -64,10 +73,67 @@ class Pedidos extends CI_Controller {
     }
 
 
-    public function confirmar($id)
+    public function despachados($id)
+    {
+        $data = array('estado_pedido' => 3);
+        $entregado = $this->pedido->editar($data, $id);
+        if($entregado === true){
+
+            $data_tracking = array(
+                'id_pedido' => $id,
+                'etapa_tracking' => 3,
+                'fecha_tracking' => date('d-m-Y'),
+                'hora_tracking' => date('H:i')
+            );
+            $this->pedido->insertar_tracking_inicial($data_tracking);
+
+            $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('Registro marcado como DESPACHADO con éxito'));
+            redirect(base_url().'pedidos');
+        } else {
+            $this->session->set_flashdata('mensaje', $this->functions->showAlertDanger('No se ha podido marcar como DESPACHADO'));
+            redirect(base_url().'pedidos');
+        }
+    }
+
+
+    public function preparando_productos($id)
     {
         $data = array('estado_pedido' => 2);
+        $entregado = $this->pedido->editar($data, $id);
+        if($entregado === true){
+
+            $data_tracking = array(
+                'id_pedido' => $id,
+                'etapa_tracking' => 2,
+                'fecha_tracking' => date('d-m-Y'),
+                'hora_tracking' => date('H:i')
+            );
+            $this->pedido->insertar_tracking_inicial($data_tracking);
+
+            $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('Registro marcado como PREPARANDO PRODUCTOS con éxito'));
+            redirect(base_url().'pedidos');
+        } else {
+            $this->session->set_flashdata('mensaje', $this->functions->showAlertDanger('No se ha podido marcar como PREPARANDO PRODUCTOS'));
+            redirect(base_url().'pedidos');
+        }
+    }
+
+
+    public function pagado($id)
+    {
+        $data = array('estado_pedido' => 1);
         $confirmar = $this->pedido->editar($data, $id);
+
+
+        $data_tracking = array(
+            'id_pedido' => $id,
+            'etapa_tracking' => 1,
+            'fecha_tracking' => date('d-m-Y'),
+            'hora_tracking' => date('H:i')
+        );
+        $this->pedido->insertar_tracking_inicial($data_tracking);
+
+
         if($confirmar === true){
             $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('Registro marcado como PAGO CONFIRMADO con éxito'));
             redirect(base_url().'pedidos');
@@ -81,7 +147,7 @@ class Pedidos extends CI_Controller {
 
     public function cancelar($id)
     {
-        $data = array('estado_pedido' => 0);
+        $data = array('estado_pedido' => 5);
         $confirmar = $this->pedido->editar($data, $id);
         if($confirmar === true){
             $this->session->set_flashdata('mensaje', $this->functions->showAlertSuccess('Registro marcado como CANCELADO con éxito'));
@@ -97,6 +163,7 @@ class Pedidos extends CI_Controller {
     public function detalle($id)
     {
         $data['pedido'] = $this->pedido->obtener($id);
+        $data['productos'] = $this->pedido->obtener_productos_pedido($id);
         $this->load->view('backend/includes/header');
         $this->load->view('backend/includes/nav');
         $this->load->view('backend/pedidos/detalle', $data);

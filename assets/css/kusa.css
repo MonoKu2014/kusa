@@ -7539,3 +7539,8 @@ select {
 .modal-open {
   padding-right: 0px !important;
 }
+
+.tached {
+  text-decoration: line-through;
+  font-size: 12px !important;
+}

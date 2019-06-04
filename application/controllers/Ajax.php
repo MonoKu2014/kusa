@@ -41,10 +41,16 @@ class Ajax extends CI_Controller {
         if($existe == 0){
             $producto = $this->home->obtener_producto($id_producto);
 
+            if($producto->precio_oferta > 0){
+                $precio = $producto->precio_oferta;
+            } else {
+                $precio = $producto->precio_producto;
+            }
+
             $data = array(
                 'id'        => $producto->id_producto,
                 'cantidad'  => $cantidad,
-                'precio'    => $producto->precio_producto,
+                'precio'    => $precio,
                 'nombre'    => $producto->nombre_producto,
                 'imagen'    => $producto->imagen_1,
                 'codigo'    => $producto->codigo_producto

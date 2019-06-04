@@ -76,7 +76,7 @@
           confirmButtonClass: 'btn btn-info',
           cancelButtonClass: 'btn btn-danger',
           dialogClass: "modal-dialog modal-lg",
-          content: 'Esta seguro que desea marcar como ENTREGADO este pedido?',
+          content: 'Esta seguro que desea marcar como PRODUCTOS ENTREGADOS este pedido?',
           icon: 'fa fa-warning',
           confirm: function(){
             window.location = Url + '/' + id;
@@ -251,6 +251,66 @@
           icon: 'fa fa-warning',
           confirm: function(){
             window.location = Url + '?ids=' + id_factura;
+          },
+          cancel: function(){
+            return;
+          }
+      });
+  }
+
+
+  function despachados(id, Url){
+      $.confirm({
+          title: 'Alerta!',
+          confirmButton: 'Si',
+          cancelButton: 'NO',
+          confirmButtonClass: 'btn btn-info',
+          cancelButtonClass: 'btn btn-danger',
+          dialogClass: "modal-dialog modal-lg",
+          content: 'Esta seguro que desea marcar con DESPACHADO este pedido?',
+          icon: 'fa fa-warning',
+          confirm: function(){
+            window.location = Url + '/' + id;
+          },
+          cancel: function(){
+            return;
+          }
+      });
+  }
+
+
+  function preparando_productos(id, Url){
+      $.confirm({
+          title: 'Alerta!',
+          confirmButton: 'Si',
+          cancelButton: 'NO',
+          confirmButtonClass: 'btn btn-info',
+          cancelButtonClass: 'btn btn-danger',
+          dialogClass: "modal-dialog modal-lg",
+          content: 'Esta seguro que desea marcar con PRODUCTOS PREPARADOS este pedido?',
+          icon: 'fa fa-warning',
+          confirm: function(){
+            window.location = Url + '/' + id;
+          },
+          cancel: function(){
+            return;
+          }
+      });
+  }
+
+
+  function pagado(id, Url){
+      $.confirm({
+          title: 'Alerta!',
+          confirmButton: 'Si',
+          cancelButton: 'NO',
+          confirmButtonClass: 'btn btn-info',
+          cancelButtonClass: 'btn btn-danger',
+          dialogClass: "modal-dialog modal-lg",
+          content: 'Esta seguro que desea marcar como PAGADO este pedido?',
+          icon: 'fa fa-warning',
+          confirm: function(){
+            window.location = Url + '/' + id;
           },
           cancel: function(){
             return;

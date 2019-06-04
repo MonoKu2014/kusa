@@ -29,6 +29,7 @@ class Web extends CI_Controller {
 		$data['dos'] = $this->home->obtener_grafica(2);
 		$data['tres'] = $this->home->obtener_grafica(3);
 		$data['cuatro'] = $this->home->obtener_grafica(4);
+		$data['planes'] = planes();
 		$this->load->view('layout/header');
 		$this->load->view('home', $data);
 		$this->load->view('layout/footer');
@@ -99,6 +100,7 @@ class Web extends CI_Controller {
 	public function productos($categoria)
 	{
 		$id_categoria = slug_back($categoria);
+		$data['categoria'] = $this->home->obtener_categoria($id_categoria);
 		$data['productos'] = $this->home->productos_por_categorias($id_categoria);
 		$data['categorias'] = categorias_tienda();
 		$this->load->view('layout/header');
@@ -151,9 +153,15 @@ class Web extends CI_Controller {
 	{
 		$nacimiento = explode('-', $this->session->b_date);
 
-		$data['dia'] 	= $nacimiento[0];
-		$data['mes'] 	= $nacimiento[1];
-		$data['anio'] 	= $nacimiento[2];
+		if(is_array($nacimiento)){
+			$data['dia'] 	= $nacimiento[0];
+			$data['mes'] 	= $nacimiento[1];
+			$data['anio'] 	= $nacimiento[2];
+		} else {
+			$data['dia'] 	= '';
+			$data['mes'] 	= '';
+			$data['anio'] 	= '';
+		}
 
 		$data['direccion'] = $this->home->obtener_direccion_principal($this->session->id);
 
@@ -243,6 +251,10 @@ class Web extends CI_Controller {
 
 	public function datos_envio()
 	{
+		if($this->session->id === null){
+			$this->session->set_flashdata('error', 1);
+            redirect(base_url().'web/login_registro');
+		}
 		$this->load->view('layout/header');
 		$this->load->view('datos');
 		$this->load->view('layout/footer');
@@ -250,6 +262,12 @@ class Web extends CI_Controller {
 
 	public function medios_pago()
 	{
+
+		if($this->session->id === null){
+			$this->session->set_flashdata('error', 1);
+            redirect(base_url().'web/login_registro');
+		}
+
 		$data['request'] = $this->input->post();
 
 		$total = $this->input->post('valor_final');
@@ -321,12 +339,25 @@ class Web extends CI_Controller {
 
 	public function pagar()
 	{
+
+		if($this->session->id === null){
+			$this->session->set_flashdata('error', 1);
+            redirect(base_url().'web/login_registro');
+		}
+
 		$urlResponse = base_url() . 'web/transbank_response';
 		$urlFinal = base_url() . 'web/gracias';
 		$monto = $this->session->total;
 		$pedido = $this->session->id_pedido;
-		$transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
+		$transaction = (new Webpay(Configuration::forProductionWebpayPlusNormal()))->getNormalTransaction();
 		$initResult = $transaction->initTransaction($monto, $pedido, $this->session->id, $urlResponse, $urlFinal);
+
+		dd($initResult);
+
+		if(!is_object($initResult)){
+			$this->session->set_flashdata('error', 1);
+            redirect(base_url().'web/medios_pago');
+		}
 
 		$data['actionForm'] = $initResult->url;
 		$data['token'] = $initResult->token;
@@ -335,25 +366,53 @@ class Web extends CI_Controller {
 
 	public function transbank_response()
 	{
-		$transaction = (new Webpay(Configuration::forTestingWebpayPlusNormal()))->getNormalTransaction();
+		$transaction = (new Webpay(Configuration::forProductionWebpayPlusNormal()))->getNormalTransaction();
 		$result = $transaction->getTransactionResult($_POST['token_ws']);
+		$_SESSION['output'] = $result;
 		$output = $result->detailOutput;
 		$_SESSION['resultado'] = $output->responseCode;
 		if ($output->responseCode == 0) {
 			$data['actionForm'] = $result->urlRedirection;
 			$data['token'] = $_POST['token_ws'];
 			$this->load->view('webpay/formulario_intermedio', $data);
+		} else {
+			$this->session->set_flashdata('error', 1);
+            redirect(base_url().'web/medios_pago');
 		}
 	}
 
 	public function gracias()
 	{
 
-		$data['id_pedido'] = $this->session->id_pedido;
+		if($this->session->resultado === null){
+			redirect(base_url().'web/pedido_actual');
+		}
+
+		// evitando f5
+		if($this->session->id_pedido === null){
+			redirect(base_url().'web/pedido_actual');
+		}
+
 		if($this->session->resultado != 0){
-			$data['mensaje_final'] = 'Hubo un error al procesar su compra';
+			$this->session->set_flashdata('error', 1);
+			$data['mensaje_final'] = 'HUBO UN ERROR AL PROCESAR SU COMPRA';
 		} else {
-			$data['mensaje_final'] = 'Gracias por comprar en Kusa.cl';
+			$data['carro'] = $this->session->carro;
+			$data['mensaje_final'] = 'GRACIAS POR COMPRAR EN KUSA.CL!';
+			$data['id_pedido'] = $this->session->id_pedido;
+			$data['tarjeta'] = $this->session->output->cardDetail->cardNumber;
+			$data['codigoAuth'] = $this->session->output->detailOutput->authorizationCode;
+			$data['total'] = $this->session->output->detailOutput->amount;
+			$data['fecha'] = date('d-m-Y').' a las '.date('H:m:i');
+			$data['despacho'] = $this->session->despacho;
+			$data['tipoPago'] = $this->session->output->detailOutput->paymentTypeCode;
+			//VN visa sin cuotas SI visa con cuotas VD débito
+			if($this->session->output->detailOutput->paymentTypeCode != 'VD'){
+				$data['cuotas'] = $this->session->output->detailOutput->sharesNumber;
+			}
+			if($this->session->output->detailOutput->paymentTypeCode == 'SI'){
+				$data['valorCuota'] = $this->session->output->detailOutput->sharesAmount;
+			}
 			$data_token = array(
 				'estado_pedido' => self::PEDIDO_PAGADO,
 				'transbank_token' => $this->input->post('token_ws')
@@ -376,10 +435,15 @@ class Web extends CI_Controller {
 				unset($data_descuento);
 			}
 
+			$data['carro'] = $this->session->carro;
+
 			$_SESSION['carro'] = [];
 			$_SESSION['id_pedido'] = null;
 			$_SESSION['total'] = null;
 			$_SESSION['resultado'] = null;
+			$_SESSION['despacho'] = null;
+			$_SESSION['subtotal'] = null;
+			$_SESSION['output'] = null;
 		}
 
 		$this->load->view('layout/header');

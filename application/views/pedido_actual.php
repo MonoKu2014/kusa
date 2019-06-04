@@ -26,7 +26,7 @@
 
                 <img src="<?= base_url();?>assets/images/icons/ic-decor.png" class="center-block">
 
-                <?php if($pedido->id_pedido === null): ?>
+                <?php if($pedido === null): ?>
                     <h3 class="text-center"><strong>No tienes ningún pedido actual</strong></h3>
                 <?php else: ?>
                     <h3 class="text-center"><strong>Tracking Pedido N°: <?= $pedido->id_pedido; ?></strong></h3>

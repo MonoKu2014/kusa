@@ -10,7 +10,7 @@
                             <div class="bg-overlay"></div>
                         </a>
                     <?php else:?>
-                        <iframe width="100%" height="450" src="<?= $uno->video_grafica;?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="500" src="<?= $uno->video_grafica;?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <?php endif;?>
                     </div>
                     <div class="col-md-4">

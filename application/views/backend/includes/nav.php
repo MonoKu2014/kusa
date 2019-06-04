@@ -30,21 +30,3 @@
 
 	    </ul>
 	</div>
-
-<script>
-
-if(localStorage.getItem('nav') === null){
-	localStorage.setItem('nav', 2);
-}
-
-$('.navigation-li').on('click', function(){
-	localStorage.setItem('nav', $(this).attr('id'));
-	if($(this).attr('id') == 12){
-		localStorage.clear();
-	}
-});
-
-$('.navigation-li').removeClass('active');
-$('#' + localStorage.getItem('nav')).addClass('active');
-
-</script>

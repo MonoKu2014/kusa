@@ -128,29 +128,29 @@ class Clientes extends CI_Controller {
         $error = 0;
 
         $this->form_validation->set_rules('nombre', 'Nombre', 'required');
+        $this->form_validation->set_rules('paterno', 'Nombre', 'required');
+        $this->form_validation->set_rules('materno', 'Nombre', 'required');
         $this->form_validation->set_rules('rut', 'Rut', 'required');
-        $this->form_validation->set_rules('comuna', 'Comuna', 'required');
-        $this->form_validation->set_rules('calle', 'Calle', 'required');
-        $this->form_validation->set_rules('numero', 'Numero', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if($this->form_validation->run() === FALSE){
             $error = 1;
         } else {
-            $data = array(
+            $fecha_nacimiento = $this->input->post('dia') . '-' . $this->input->post('mes') . '-' . $this->input->post('anio');
+            $data_user = array(
                 'nombre_cliente' => $this->input->post('nombre'),
+                'apellidop_cliente' => $this->input->post('paterno'),
+                'apellidom_cliente' => $this->input->post('materno'),
                 'rut_cliente' => $this->input->post('rut'),
-                'region_cliente' => $this->input->post('region'),
-                'comuna_cliente' => $this->input->post('comuna'),
-                'calle_cliente' => $this->input->post('calle'),
-                'numero_cliente' => $this->input->post('numero'),
                 'email_cliente' => $this->input->post('email'),
                 'password_cliente' => $this->input->post('password'),
                 'fono_cliente' => $this->input->post('fono'),
-                'id_estado' => 1
+                'fechan_cliente' => $fecha_nacimiento,
+                'id_estado' => 1,
+                'recibe_info' => 0
             );
-            $update = $this->cliente->insertar($data);
+            $this->cliente->insertar($data_user);
             if ($update === false){
                 $error = 1;
             }

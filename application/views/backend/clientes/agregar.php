@@ -22,58 +22,68 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 jumbotron">
                 <form method="post" action="<?= base_url();?>clientes/guardar">
 
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Nombre Completo</h5>
-                        <input type="text" name="nombre" class="form-control" required>
+                <?= $this->session->flashdata('mensaje'); ?>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Nombres(*):</span>
+                        <input type="text" required id="nombre" name="nombre" placeholder="Nombres" class="form-control required" pattern="[a-zA-Z][a-zA-Z0-9\s]*" maxlength="35">
                     </div>
 
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Rut Cliente (*)</h5>
-                        <input type="text" name="rut" class="form-control" required>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Apellido Paterno(*):</span>
+                        <input class="form-control required" type="text" required placeholder="Apellido Paterno" name="paterno" pattern="[a-zA-Z][a-zA-Z0-9\s]*" maxlength="35">
                     </div>
 
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">E-mail</h5>
-                        <input type="text" name="email" class="form-control" required>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Apellido Materno(*):</span>
+                        <input class="form-control required" type="text" required placeholder="Apellido Materno" name="materno" pattern="[a-zA-Z][a-zA-Z0-9\s]*" maxlength="35">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Rut(*):</span>
+                        <input class="form-control required" type="text" required id="rut" placeholder="Rut (9999999-9)" name="rut">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Celular(*):</span>
+                        <input class="form-control required" type="text" required placeholder="Celular ej:569xxxxxxxx" name="fono" pattern="^(0|[1-9][0-9]*)$" maxlength="11">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Email(*):</span>
+                        <input type="email" id="email" required name="email" class="form-control required" placeholder="ejemplo@ejemplo.cl">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <span>Password(*):</span>
+                        <input type="text" required id="password" name="password" class="form-control required">
                     </div>
 
 
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Clave</h5>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-
-
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Fono</h5>
-                        <input type="text" name="fono" class="form-control" required>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Región</h5>
-                        <select name="region" class="form-control" required id="region">
-                            <option value="">Selecciona región</option>
-                            <?php foreach ($this->functions->listarRegiones() as $r) { ?>
-                                <option value="<?= $r->nombre_region;?>" data-id="<?= $r->id_region;?>"><?= $r->nombre_region;?></option>
-                            <?php } ?>
+                    <div class="col-md-12 form-group"><span>Fecha de Nacimiento</span></div>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control required" name="dia" required>
+                            <option value="" data-display="dia">Dia</option>
+                            <?php for($x = 1; $x <= 31; $x++): ?>
+                                <option value="<?= $x; ?>"><?= $x; ?></option>
+                            <?php endfor;?>
                         </select>
                     </div>
-
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Comuna</h5>
-                        <select name="comuna" class="form-control" required id="comuna">
-                            <option value="">Selecciona comuna</option>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control required" name="mes" required>
+                            <option value="" data-display="mes">Mes</option>
+                            <?php for($x = 1; $x <= 12; $x++): ?>
+                                <option value="<?= $x; ?>"><?= $x; ?></option>
+                            <?php endfor;?>
                         </select>
                     </div>
-
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Calle</h5>
-                        <input type="text" name="calle" class="form-control" required>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <h5 style="font-weight: bold;">Número</h5>
-                        <input type="text" name="numero" class="form-control" required>
+                    <div class="col-md-2 form-group">
+                        <select class="form-control required" name="anio" required>
+                            <option value="" data-display="anio">Año</option>
+                            <?php for($x = 1900; $x <= date('Y'); $x++): ?>
+                                <option value="<?= $x; ?>"><?= $x; ?></option>
+                            <?php endfor;?>
+                        </select>
                     </div>
 
                     <div class="col-lg-12">

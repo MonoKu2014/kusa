@@ -2,16 +2,16 @@
         <!-- Heading page / start-->
         <div class="heading-page bg-cover" style="background: url('<?= base_url();?>assets/images/bg-titulos.jpg') center center no-repeat;">
             <div class="container">
-            <h1 class="text-center text-white">PLANTAS</h1>
+            <h1 class="text-center text-white"><?= strtoupper($categoria->nombre_categoria); ?></h1>
                 <ul class="breadcrumbs">
                     <li>
-                        <a href="./">INICIO</a>
+                        <a href="<?= base_url();?>">INICIO</a>
                     </li>
                     <li>
-                        <a href="listado-productos-tienda.php">TIENDA KUSA</a>
+                        <a href="<?= base_url();?>tienda">TIENDA KUSA</a>
                     </li>
                      <li>
-                        <a href="tienda-kusa-plantas.php">PLANTAS</a>
+                        <a href="#"><?= strtoupper($categoria->nombre_categoria); ?></a>
                     </li>
                 </ul>
             </div>
@@ -64,7 +64,12 @@
                                         <a href="<?= base_url(); ?>web/producto/<?= slug_prod($producto->id_producto, $producto->nombre_producto); ?>">Nombre producto</a>
                                     </h4>
                                     <div class="info">
-                                        <span class="price">$<?= money($producto->precio_producto); ?></span>
+                                        <?php if($producto->precio_oferta > 0): ?>
+                                            <span class="gray small tached">$<?= money($producto->precio_producto); ?></span>
+                                            <span class="price">$<?= money($producto->precio_oferta); ?></span>
+                                        <?php else:?>
+                                            <span class="price">$<?= money($producto->precio_producto); ?></span>
+                                        <?php endif;?>
                                     </div>
                                 </div>
                                  </div>
@@ -73,35 +78,7 @@
                             <?php endforeach; ?>
 
                             </ul>
-                            <div class="shop-page-paginations text-center">
-                                <ul class="paginations">
-                                    <li class="item active">
-                                        <a href="#">
-                                            <span>1</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a href="#">
-                                            <span>2</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a href="#">
-                                            <span>3</span>
-                                        </a>
-                                    </li>
-                                    <li class="item">
-                                        <a href="#">
-                                            <span>4</span>
-                                        </a>
-                                    </li>
-                                    <li class="next">
-                                        <a href="#">
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </article>
                 </div>

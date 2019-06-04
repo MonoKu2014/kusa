@@ -89,6 +89,7 @@ function planes($limit = null)
 	if($limit != null){
 		$ci->db->limit($limit);
 	}
+	$ci->db->order_by('orden', 'asc');
 	$ci->db->where('tipo', 'plan');
 	return $ci->db->get('categorias')->result();
 }
@@ -96,6 +97,7 @@ function planes($limit = null)
 function categorias_tienda()
 {
 	$ci =& get_instance();
+	$ci->db->order_by('orden', 'asc');
 	$ci->db->where('tipo', 'producto');
 	return $ci->db->get('categorias')->result();
 }
