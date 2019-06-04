@@ -10,7 +10,7 @@
                         <a href="<?= base_url(); ?>web/planes">LISTADO PLANES </a>
                     </li>
                     <li>
-                        <a href="<?= base_url(); ?>web/productos_planes/<?= slug_cat($producto->id_categoria, $producto->nombre_categoria); ?>">LISTADO PLANES </a>
+                        <a href="<?= base_url(); ?>web/productos_planes/<?= slug_cat($producto->id_categoria, $producto->nombre_categoria); ?>"><?= strtoupper($producto->nombre_categoria); ?> </a>
                     </li>
                     <li>
                         <a href="<?= base_url(); ?>web/plan/<?= slug_cat($producto->id_categoria, $producto->nombre_producto); ?>">DETALLE PLAN</a>
