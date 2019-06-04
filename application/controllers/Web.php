@@ -90,7 +90,7 @@ class Web extends CI_Controller {
 	{
 		$id_plan = slug_back($plan);
 		$data['producto'] = $this->home->obtener_producto($id_plan);
-		$data['relacionados'] = $this->home->planes_relacionados($id_plan);
+		$data['relacionados'] = $this->home->obtener_relacionados($id_plan);
 		$this->load->view('layout/header');
 		$this->load->view('plan', $data);
 		$this->load->view('layout/footer');
@@ -112,7 +112,7 @@ class Web extends CI_Controller {
 	{
 		$id_producto = slug_back($producto);
 		$data['producto'] = $this->home->obtener_producto($id_producto);
-		$data['relacionados'] = $this->home->productos_relacionados($id_producto);
+		$data['relacionados'] = $this->home->obtener_relacionados($id_producto);
 		$this->load->view('layout/header');
 		$this->load->view('producto', $data);
 		$this->load->view('layout/footer');

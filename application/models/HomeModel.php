@@ -184,4 +184,13 @@ class HomeModel extends CI_Model {
         }
 
 
+        public function obtener_relacionados($id)
+        {
+            $this->db->where('r.id_producto_padre', $id);
+            $this->db->join('productos p', 'p.id_producto = r.id_producto_relacionado');
+            $this->db->join('categorias c', 'p.id_categoria = c.id_categoria');
+            return $this->db->get('relacionados r')->result();
+        }
+
+
 }
