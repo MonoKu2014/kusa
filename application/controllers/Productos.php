@@ -274,7 +274,7 @@ class Productos extends CI_Controller {
             $this->session->set_flashdata('mensaje', alert_success('Registro eliminado con éxito'));
             redirect(base_url().'productos');
         } else {
-            $this->session->set_flashdata('mensaje', alert_success('No se ha podido eliminar el registro'));
+            $this->session->set_flashdata('mensaje', alert_danger('No se ha podido eliminar el registro'));
             redirect(base_url().'productos');
         }
     }
@@ -289,7 +289,7 @@ class Productos extends CI_Controller {
             $this->session->set_flashdata('mensaje', alert_success('Registro activado con éxito'));
             redirect(base_url().'productos');
         } else {
-            $this->session->set_flashdata('mensaje', alert_success('No se ha podido activar el registro'));
+            $this->session->set_flashdata('mensaje', alert_danger('No se ha podido activar el registro'));
             redirect(base_url().'productos');
         }
     }
@@ -303,7 +303,7 @@ class Productos extends CI_Controller {
             $this->session->set_flashdata('mensaje', alert_success('Registro desactivado con éxito'));
             redirect(base_url().'productos');
         } else {
-            $this->session->set_flashdata('mensaje', alert_success('No se ha podido desactivar el registro'));
+            $this->session->set_flashdata('mensaje', alert_danger('No se ha podido desactivar el registro'));
             redirect(base_url().'productos');
         }
     }
@@ -318,6 +318,35 @@ class Productos extends CI_Controller {
         $nombre_archivo = 'Productos_'.date('d-m-Y').'.xlsx';
 
         main_export($nombre_archivo, $usuarios, $cabeceras);
+    }
+
+
+	public function relacionar($id_producto)
+	{
+        $data['producto'] = $this->producto->obtener($id_producto);
+        $data['posibles'] = $this->producto->listar_para_relaciones($id_producto);
+		$this->load->view('backend/includes/header');
+		$this->load->view('backend/includes/nav');
+		$this->load->view('backend/productos/relacionar', $data);
+		$this->load->view('backend/includes/footer');
+    }
+    
+    public function guarda_relaciones()
+    {
+        $producto = $this->input->post('id_producto');
+        $relaciones = $this->input->post('relacion');
+
+        foreach ($relaciones as $key => $value) {
+            $data = array(
+                'id_producto_padre' => $producto,
+                'id_producto_relacionado' => $key
+            );
+            $this->producto->insertar_relacion($data);
+            unset($data);
+        }
+
+        $this->session->set_flashdata('mensaje', alert_success('Relaciones guardadas con éxito'));
+        redirect(base_url().'productos');
     }
 
 

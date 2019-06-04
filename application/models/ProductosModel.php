@@ -114,4 +114,17 @@ class ProductosModel extends CI_Model {
 
         }
 
+
+        public function listar_para_relaciones($id)
+        {
+            $this->db->where('id_producto !=', $id);
+            $query = $this->db->get('productos');
+            return $query->result();
+        }
+
+        public function insertar_relacion($data)
+        {
+            return $this->db->insert('relacionados', $data);
+        }
+
 }
