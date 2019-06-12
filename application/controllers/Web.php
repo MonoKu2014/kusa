@@ -113,6 +113,7 @@ class Web extends CI_Controller {
 		$id_producto = slug_back($producto);
 		$data['producto'] = $this->home->obtener_producto($id_producto);
 		$data['relacionados'] = $this->home->obtener_relacionados($id_producto);
+		$data['detalles'] = $this->home->detalles($id_producto);
 		$this->load->view('layout/header');
 		$this->load->view('producto', $data);
 		$this->load->view('layout/footer');

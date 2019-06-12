@@ -15,35 +15,39 @@ $(document).ready(function(){
 
 
     $('.add-to-cart').on('click', function(event){
-        $(this).attr('disabled', true);
         event.preventDefault();
-        $(this).addClass('disabled-button');
-        $(this).attr('disabled', true);
-        $(this).text('Agregando al carro');
-
         var id = $(this).data('id');
         var cantidad = $('.cantidad_producto').val();
+        var precio = $(this).data('price');
 
-        $.ajax({
-            type: 'post',
-            url: URL + 'ajax/agregar_producto',
-            data: { id:id, cantidad:cantidad },
-            success: function(resp){
-                if(resp == 0){
-                    swal(
-                        'Perfecto!',
-                        'El producto se ha agregado a tu carro',
-                        'success'
-                    ).then((resp) => {
-                        if(resp){
-                            window.location = URL + 'web/carro';
-                        } else {
-                            location.reload();
-                        }
-                    }).catch(swal.noop);
+        if(typeof id === 'undefined'){
+            swal('Atención', 'debes seleccionar una talla y/o color para agregar al carro', 'warning');
+        } else {
+            $(this).addClass('disabled-button');
+            $(this).attr('disabled', true);
+            $(this).text('Agregando al carro');
+            $.ajax({
+                type: 'post',
+                url: URL + 'ajax/agregar_producto',
+                data: { id:id, cantidad:cantidad, precio: precio },
+                success: function(resp){
+                    if(resp == 0){
+                        swal(
+                            'Perfecto!',
+                            'El producto se ha agregado a tu carro',
+                            'success'
+                        ).then((resp) => {
+                            if(resp){
+                                window.location = URL + 'web/carro';
+                            } else {
+                                location.reload();
+                            }
+                        }).catch(swal.noop);
+                    }
                 }
-            }
-        });
+            });
+        }
+
     });
 
     $('.eliminar-producto').on('click', function(event){
@@ -202,5 +206,14 @@ $(document).ready(function(){
     $('input#rut').rut().on('rutInvalido', function(e) {
         $(this).val('').attr('placeholder', 'Rut inválido');
     });
+
+    $('#talla-selector').on('change', function(){
+        var price = $('#talla-selector').find('option:selected').data('id');
+        var id = $('#talla-selector').find('option:selected').val();
+        $('#price').empty().html(new Intl.NumberFormat().format(price));
+        $('#select-prod').attr('data-id', id);
+        $('#select-prod').attr('data-price', price);
+    });
+
 
 });

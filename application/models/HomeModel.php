@@ -192,5 +192,19 @@ class HomeModel extends CI_Model {
             return $this->db->get('relacionados r')->result();
         }
 
+        public function detalles($id)
+        {
+            $this->db->where('id_producto', $id);
+            return $this->db->get('productos_detalle')->result();
+        }
+
+        public function obtener_producto_detalle($id)
+        {
+            $this->db->where('pd.id_producto', $id);
+            $this->db->join('productos p', 'p.id_producto = pd.id_producto');
+            $this->db->join('categorias c', 'p.id_categoria = c.id_categoria');
+            return $this->db->get('productos_detalle pd')->row();
+        }
+
 
 }
