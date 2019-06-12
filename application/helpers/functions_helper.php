@@ -281,6 +281,18 @@ function delivery_value($total)
 	if($delivery){
 		return $delivery;
 	}
-
 	return '';
+}
+
+
+function total_cantity($id_prod)
+{
+	$sum = 0;
+	$ci =& get_instance();
+	$ci->db->where('id_producto', $id_prod);
+	$cantidades = $ci->db->get('productos_detalle')->result();
+	foreach ($cantidades as $cant) {
+		$sum = $sum + $cant->cantidad;
+	}
+	return $sum;
 }
