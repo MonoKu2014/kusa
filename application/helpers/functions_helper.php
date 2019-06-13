@@ -71,6 +71,9 @@ function alert_info($text)
 
 function money($price)
 {
+	if($price == '' || $price == 0){
+		return 0;
+	}
     return number_format($price, 0, ',', '.');
 }
 
@@ -274,6 +277,11 @@ function actual_cantity($id_prod)
 
 function delivery_value($total)
 {
+
+	if($total == ''){
+		return '';
+	}
+
 	$ci =& get_instance();
 	$ci->db->where('desde_valor_despacho <=', $total);
 	$ci->db->where('hasta_valor_despacho >=', $total);
@@ -281,6 +289,18 @@ function delivery_value($total)
 	if($delivery){
 		return $delivery;
 	}
-
 	return '';
+}
+
+
+function total_cantity($id_prod)
+{
+	$sum = 0;
+	$ci =& get_instance();
+	$ci->db->where('id_producto', $id_prod);
+	$cantidades = $ci->db->get('productos_detalle')->result();
+	foreach ($cantidades as $cant) {
+		$sum = $sum + $cant->cantidad;
+	}
+	return $sum;
 }

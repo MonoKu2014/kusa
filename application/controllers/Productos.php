@@ -330,7 +330,7 @@ class Productos extends CI_Controller {
 		$this->load->view('backend/productos/relacionar', $data);
 		$this->load->view('backend/includes/footer');
     }
-    
+
     public function guarda_relaciones()
     {
         $producto = $this->input->post('id_producto');
@@ -347,6 +347,52 @@ class Productos extends CI_Controller {
 
         $this->session->set_flashdata('mensaje', alert_success('Relaciones guardadas con éxito'));
         redirect(base_url().'productos');
+    }
+
+    public function tallas($id_producto)
+    {
+        $data['producto'] = $this->producto->obtener($id_producto);
+        $data['detalle'] = $this->producto->detalle_tallas($id_producto);
+		$this->load->view('backend/includes/header');
+		$this->load->view('backend/includes/nav');
+		$this->load->view('backend/productos/tallas', $data);
+		$this->load->view('backend/includes/footer');
+    }
+
+
+    public function guarda_tallas()
+    {
+        $id_producto = $this->input->post('id_producto');
+        $accion = $this->input->post('accion');
+
+        $talla = $this->input->post('talla');
+        $color = $this->input->post('color');
+        $precio = $this->input->post('precio');
+        $oferta = $this->input->post('oferta');
+        $cantidad = $this->input->post('cantidad');
+
+        if($talla == '' || $precio == '' || $cantidad == ''){
+            $this->session->set_flashdata('mensaje', alert_danger('Debes llenar los campos obligatorios, que son talla, precio y cantidad'));
+            redirect(base_url().'productos/tallas/' . $id_producto);
+        }
+
+        $data = array(
+            'id_producto' => $id_producto,
+            'cantidad' => $cantidad,
+            'color' => $color,
+            'talla' => $talla,
+            'precio' => $precio,
+            'oferta' => $oferta
+        );
+
+        $this->producto->insertar_talla($data);
+        if($accion == 'Guardar'){
+            $this->session->set_flashdata('mensaje', alert_success('Detalle guardado con éxito'));
+            redirect(base_url().'productos/tallas/' . $id_producto);
+        } else {
+            $this->session->set_flashdata('mensaje', alert_success('Detalle finalizado con éxito'));
+            redirect(base_url().'productos');
+        }
     }
 
 

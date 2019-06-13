@@ -60,19 +60,32 @@
 
                                     <hr>
 
-                                    <span class="product-price m-b-15">Precio: 
-                                    <?php if($producto->precio_oferta > 0): ?>
-                                        <span class="gray small tached">$<?= money($producto->precio_producto); ?></span>
-                                        <span class="green">$<?= money($producto->precio_oferta); ?></span>
-                                    <?php else:?>
-                                        <span class="green">$<?= money($producto->precio_producto); ?></span>
-                                    <?php endif;?>
+
+                                    <span class="product-price m-b-15">Talla/Color:
+                                        <select name="talla" id="talla-selector" class="au-select">
+                                        <option value="">Selecciona</option>
+                                        <?php foreach($detalles as $d): ?>
+
+                                        <?php if($d->oferta != 0){ $precio = $d->oferta; } else { $precio = $d->precio; } ?>
+                                        <?php if($d->talla == 'U'){ $talla = 'Talla única'; } else { $talla = $d->talla; } ?>
+                                        <?php if($d->color == ''){ $color = ''; } else { $color = ' en color ' . $d->color; } ?>
+
+                                        <option data-id="<?= $precio; ?>" value="<?= $d->id_detalle; ?>"><?= $talla; ?><?= $color; ?></option>
+
+                                        <?php endforeach; ?>
+                                        </select>
+                                    </span>
+
+                                    <hr>
+
+
+                                    <span class="product-price m-b-15">Precio:
+                                    <span class="green" id="price"></span>
                                     </span>
 
                                     <hr>
 
                                     <div class="product-select row-cs m-b-20">
-
                                         <div class="col-cs-6 p-l-5">
                                             <div class="quantity" data-toggle="tooltip" title="Cantidad">
                                                 <span class="decrease"></span>
@@ -82,8 +95,7 @@
                                         </div>
                                     </div>
 
-
-                                    <button class="au-btn add-to-cart btn-block m-b-30" data-id="<?= $producto->id_producto; ?>">Agregar al Carro</button>
+                                    <button class="au-btn add-to-cart btn-block m-b-30" id="select-prod">Agregar al Carro</button>
                                 </div>
                             </div>
                         </div>

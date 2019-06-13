@@ -28,6 +28,7 @@ class Ajax extends CI_Controller {
     {
         $id_producto = $this->input->post('id');
         $cantidad = $this->input->post('cantidad');
+        $precio = $this->input->post('precio');
         $existe = 0;
         foreach ($_SESSION['carro'] as $k => $cart) {
             if($cart['id'] == $id_producto){
@@ -39,21 +40,23 @@ class Ajax extends CI_Controller {
 
 
         if($existe == 0){
-            $producto = $this->home->obtener_producto($id_producto);
+            $producto = $this->home->obtener_producto_detalle($id_producto);
 
-            if($producto->precio_oferta > 0){
-                $precio = $producto->precio_oferta;
+            if($producto->oferta > 0){
+                $precio = $producto->oferta;
             } else {
-                $precio = $producto->precio_producto;
+                $precio = $producto->precio;
             }
 
             $data = array(
-                'id'        => $producto->id_producto,
+                'id'        => $producto->id_detalle,
                 'cantidad'  => $cantidad,
                 'precio'    => $precio,
                 'nombre'    => $producto->nombre_producto,
                 'imagen'    => $producto->imagen_1,
-                'codigo'    => $producto->codigo_producto
+                'codigo'    => $producto->codigo_producto,
+                'talla'     => $producto->talla,
+                'color'     => $producto->color,
             );
             array_push($_SESSION['carro'], $data);
         }

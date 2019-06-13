@@ -127,4 +127,16 @@ class ProductosModel extends CI_Model {
             return $this->db->insert('relacionados', $data);
         }
 
+        public function detalle_tallas($id)
+        {
+            $this->db->where('id_producto', $id);
+            $query = $this->db->get('productos_detalle');
+            return $query->result();
+        }
+
+        public function insertar_talla($data)
+        {
+            return $this->db->insert('productos_detalle', $data);
+        }
+
 }
